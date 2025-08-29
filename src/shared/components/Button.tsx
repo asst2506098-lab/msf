@@ -1,9 +1,28 @@
-import { ButtonHTMLAttributes } from "react";
+import { ReactNode } from "react";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary";
+type Props = {
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+  className?: string;
 };
 
-export function Button({ variant = "primary", ...props }: Props) {
-  return <button {...props} data-variant={variant} />;
+export function Button({
+  type = "button",
+  disabled,
+  onClick,
+  children,
+  className,
+}: Props) {
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={className}
+    >
+      {children}
+    </button>
+  );
 }
