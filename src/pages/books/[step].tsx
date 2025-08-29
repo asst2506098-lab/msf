@@ -1,13 +1,38 @@
-import { useRouter } from "next/router";
+import { BookFormLayout } from "../../features/bookForm/components/BookFormLayout";
+import { useBookFormRouter } from "../../features/bookForm/hooks/useBookFormRouter";
+import { BOOK_FORM_STEPS } from "../../features/bookForm/constants/steps";
+import { getStepMetaByIndex } from "@/features/bookForm/utils/steps";
 
 export default function NewBookStepPage() {
-  const router = useRouter();
-  const { step } = router.query;
+  const nav = useBookFormRouter();
+
+  const current = nav.stepIndex + 1;
+  const total = BOOK_FORM_STEPS.length;
+  const CurrentStep = getStepMetaByIndex(nav.stepIndex)?.component ?? null;
 
   return (
     <main>
-      <h1>New Book - Step {String(step ?? "")}</h1>
-      <p>멀티 스텝 폼의 더미 페이지입니다.</p>
+      <BookFormLayout>
+        <BookFormLayout.Header
+          current={current}
+          total={total}
+          title={nav.meta.title}
+          description={nav.meta.description}
+        />
+        <BookFormLayout.Content>
+          {CurrentStep ? <CurrentStep /> : null}
+        </BookFormLayout.Content>
+        <BookFormLayout.Footer
+          isFirst={nav.isFirst}
+          isLast={nav.isLast}
+          onFirst={nav.goFirst}
+          onPrev={nav.goPrev}
+          onNext={nav.goNext}
+          onSubmit={() => {
+            alert("제출");
+          }}
+        />
+      </BookFormLayout>
     </main>
   );
 }
