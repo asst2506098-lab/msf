@@ -46,7 +46,7 @@ export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
     title: "추천 여부 & 별점",
     description: "추천 여부, 별점(0~5, 0.5 스케일)",
     component: RatingStep,
-    fields: ["isRecommended", "rating"],
+    fields: ["rating"],
   },
   {
     key: "review",

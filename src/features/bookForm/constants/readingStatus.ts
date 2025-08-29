@@ -3,4 +3,4 @@ export const READING_STATUS_OPTIONS = [
   { value: "reading", label: "읽는 중" },
   { value: "finished", label: "읽음" },
   { value: "paused", label: "보류 중" },
-];
+] as const;
