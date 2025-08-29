@@ -1,4 +1,4 @@
-import { BookFormLayout } from "../../features/bookForm/components/BookFormLayout";
+import { BookFormLayout } from "../../features/bookForm/components/layout/BookFormLayout";
 import { useBookFormRouter } from "../../features/bookForm/hooks/useBookFormRouter";
 import { BOOK_FORM_STEPS } from "../../features/bookForm/constants/steps";
 import { getStepMetaByIndex } from "@/features/bookForm/utils/steps";
