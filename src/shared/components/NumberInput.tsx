@@ -59,7 +59,7 @@ export function NumberInput<T extends FieldValues>({
         )}
       />
       {error && (
-        <div id={`${name}-error`} role="alert">
+        <div id={`${name}-error`} role="alert" style={{ color: "red" }}>
           {error}
         </div>
       )}
