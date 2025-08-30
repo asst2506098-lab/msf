@@ -20,7 +20,7 @@ export default function NewBookStepPage() {
       readingStartDate: "",
       readingEndDate: "",
       isRecommended: false,
-      rating: 0,
+      rating: null,
       review: "",
       quotes: [],
       isPublic: false,
