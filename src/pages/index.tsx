@@ -5,7 +5,7 @@ export default function Home() {
       <p>Next.js (pages router) 부트스트랩 페이지</p>
       <ul>
         <li>
-          <a href="/books/1">/books/1</a>
+          <a href="/books/basic">/books/basic</a>
         </li>
       </ul>
     </main>
