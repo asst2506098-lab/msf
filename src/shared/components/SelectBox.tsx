@@ -14,7 +14,7 @@ type Option = {
 type Props<T extends FieldValues> = {
   name: FieldPath<T>;
   label?: string;
-  options: Option[];
+  options: readonly Option[];
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
