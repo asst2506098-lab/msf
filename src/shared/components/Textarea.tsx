@@ -1,8 +1,8 @@
 import {
-  Controller,
   FieldPath,
   FieldValues,
   RegisterOptions,
+  useController,
   useFormContext,
 } from "react-hook-form";
 
@@ -27,10 +27,15 @@ export function Textarea<T extends FieldValues>({
   rows = 4,
   cols,
 }: Props<T>) {
+  const { control } = useFormContext<T>();
   const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[name]?.message as string;
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    rules,
+  });
 
   return (
     <div>
@@ -40,23 +45,17 @@ export function Textarea<T extends FieldValues>({
           {required && <span>*</span>}
         </label>
       )}
-      <Controller
-        name={name}
-        rules={rules}
-        render={({ field }) => (
-          <textarea
-            {...field}
-            id={name}
-            placeholder={placeholder}
-            disabled={disabled}
-            rows={rows}
-            cols={cols}
-          />
-        )}
+      <textarea
+        {...field}
+        id={name}
+        placeholder={placeholder}
+        disabled={disabled}
+        rows={rows}
+        cols={cols}
       />
       {error && (
         <div id={`${name}-error`} role="alert" style={{ color: "red" }}>
-          {error}
+          {error.message}
         </div>
       )}
     </div>

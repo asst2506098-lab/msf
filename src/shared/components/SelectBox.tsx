@@ -1,8 +1,8 @@
 import {
-  Controller,
   FieldPath,
   FieldValues,
   RegisterOptions,
+  useController,
   useFormContext,
 } from "react-hook-form";
 
@@ -30,10 +30,15 @@ export function SelectBox<T extends FieldValues>({
   disabled,
   rules,
 }: Props<T>) {
+  const { control } = useFormContext<T>();
   const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[name]?.message as string;
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    rules,
+  });
 
   return (
     <div>
@@ -43,27 +48,21 @@ export function SelectBox<T extends FieldValues>({
           {required && <span>*</span>}
         </label>
       )}
-      <Controller
-        name={name}
-        rules={rules}
-        render={({ field }) => (
-          <select {...field} id={name} disabled={disabled}>
-            {placeholder && (
-              <option value="" disabled>
-                {placeholder}
-              </option>
-            )}
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+      <select {...field} id={name} disabled={disabled}>
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
         )}
-      />
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
       {error && (
         <div id={`${name}-error`} role="alert" style={{ color: "red" }}>
-          {error}
+          {error.message}
         </div>
       )}
     </div>

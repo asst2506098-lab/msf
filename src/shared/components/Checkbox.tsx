@@ -1,8 +1,8 @@
 import {
-  Controller,
   FieldPath,
   FieldValues,
   RegisterOptions,
+  useController,
   useFormContext,
 } from "react-hook-form";
 
@@ -21,37 +21,36 @@ export function Checkbox<T extends FieldValues>({
   disabled,
   rules,
 }: Props<T>) {
+  const { control } = useFormContext<T>();
   const {
-    formState: { errors },
-  } = useFormContext();
-  const error = errors[name]?.message as string;
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    rules,
+  });
 
   return (
     <div>
-      <Controller
-        name={name}
-        rules={rules}
-        render={({ field }) => (
-          <label>
-            <input
-              {...field}
-              id={name}
-              type="checkbox"
-              checked={field.value}
-              disabled={disabled}
-            />
-            {label && (
-              <span>
-                {label}
-                {required && <span>*</span>}
-              </span>
-            )}
-          </label>
+      <label>
+        <input
+          {...field}
+          id={name}
+          type="checkbox"
+          checked={field.value}
+          disabled={disabled}
+        />
+        {label && (
+          <span>
+            {label}
+            {required && <span>*</span>}
+          </span>
         )}
-      />
+      </label>
       {error && (
         <div id={`${name}-error`} role="alert" style={{ color: "red" }}>
-          {error}
+          {error.message}
         </div>
       )}
     </div>
