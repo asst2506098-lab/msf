@@ -3,7 +3,7 @@ import { TextInput, NumberInput, Button } from "@/shared/components";
 import { SubmitFormData } from "../../types/basicStep";
 
 export function QuotesStep() {
-  const { watch, control, getValues } = useFormContext<SubmitFormData>();
+  const { watch, control } = useFormContext<SubmitFormData>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "quotes",
@@ -19,6 +19,13 @@ export function QuotesStep() {
     remove(index);
   };
 
+  if (totalPages <= 0) {
+    return (
+      <div>
+        <p>먼저 1단계에서 전체 페이지 수를 입력해주세요.</p>
+      </div>
+    );
+  }
   return (
     <>
       <Button type="button" onClick={addQuote}>
@@ -36,7 +43,7 @@ export function QuotesStep() {
           />
           {fields.length > 1 && (
             <NumberInput
-              name={`quotes.${index}.pageNumber`}
+              name={`quotes.${index}.page`}
               label="페이지 번호"
               placeholder="페이지 번호를 입력하세요"
               required
@@ -50,9 +57,11 @@ export function QuotesStep() {
                   message: `페이지 번호는 ${totalPages} 이하여야 합니다`,
                 },
                 validate: (value: number) => {
-                  const currentTotalPages = getValues("totalPages");
-                  if (value > currentTotalPages) {
-                    return `페이지 번호는 ${currentTotalPages} 이하여야 합니다`;
+                  if (!value || value < 1) {
+                    return "페이지 번호는 1 이상이어야 합니다";
+                  }
+                  if (value > totalPages) {
+                    return `페이지 번호는 ${totalPages} 이하여야 합니다`;
                   }
                   return true;
                 },
