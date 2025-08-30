@@ -1,5 +1,4 @@
 import {
-  Controller,
   FieldPath,
   FieldValues,
   RegisterOptions,
@@ -57,6 +56,11 @@ export function NumberInput<T extends FieldValues>({
         min={min}
         max={max}
         step={step}
+        value={field.value ?? ""}
+        onChange={(e) => {
+          const value = e.target.value;
+          field.onChange(value === "" ? null : Number(value));
+        }}
       />
       {error && (
         <div id={`${name}-error`} role="alert" style={{ color: "red" }}>
