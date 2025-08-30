@@ -1,11 +1,20 @@
 import { ReactNode } from "react";
+import { PreviewContainer } from "@/features/preview/components/PreviewContainer";
 
-type RootProps = {
-  children: ReactNode;
-};
-
-function Root({ children }: RootProps) {
-  return <div>{children}</div>;
+function Root({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        border: "1px solid black",
+        justifyContent: "space-between",
+        padding: "10px 300px",
+      }}
+    >
+      <div>{children}</div>
+      <PreviewContainer />
+    </div>
+  );
 }
 
 type HeaderProps = {
@@ -29,11 +38,7 @@ function Header({ current, total, title, description }: HeaderProps) {
   );
 }
 
-type ContentProps = {
-  children: React.ReactNode;
-};
-
-function Content({ children }: ContentProps) {
+function Content({ children }: { children: ReactNode }) {
   return <section>{children}</section>;
 }
 
