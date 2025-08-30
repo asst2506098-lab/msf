@@ -26,7 +26,7 @@ export type ReviewStepFormData = {
 // 4단계
 export type QuotesStepFormData = {
   quotes?: {
-    page: number;
+    page: number | null;
     content: string;
   }[];
 };
