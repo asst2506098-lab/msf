@@ -24,7 +24,7 @@ export function RatingStep() {
         }}
       />
 
-      {rating > 0 && <p>현재 별점: {rating}점</p>}
+      {rating && rating > 0 && <p>현재 별점: {rating}점</p>}
     </>
   );
 }
