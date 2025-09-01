@@ -1,41 +1,41 @@
 import { BookFormLayout } from "../../features/bookForm/components/layout/BookFormLayout";
 import { useBookFormRouter } from "../../features/bookForm/hooks/useBookFormRouter";
+import { useBookFormData } from "../../features/bookForm/hooks/useBookFormData";
 import { BOOK_FORM_STEPS } from "../../features/bookForm/constants/steps";
 import { getStepMetaByIndex } from "@/features/bookForm/utils/steps";
 import { FormProvider, useForm } from "react-hook-form";
 import { SubmitFormData } from "@/features/bookForm/types/basicStep";
 import { TOTAL_STEPS } from "../../features/bookForm/constants/steps";
+import { DEFAULT_FORM_DATA } from "../../features/bookForm/constants/sessionStorage";
+import { useRouter } from "next/router";
 
 export default function NewBookStepPage() {
   const nav = useBookFormRouter();
   const methods = useForm<SubmitFormData>({
     mode: "onChange",
-    defaultValues: {
-      bookTitle: "",
-      author: "",
-      publisher: "",
-      publishedDate: "",
-      totalPages: 0,
-      readingStatus: "want_to_read",
-      readingStartDate: "",
-      readingEndDate: "",
-      isRecommended: false,
-      rating: 0,
-      review: "",
-      quotes: [],
-      isPublic: false,
-    },
+    defaultValues: DEFAULT_FORM_DATA,
   });
+
+  const { resetValue, saveFormData } = useBookFormData(methods);
 
   const current = nav.stepIndex + 1;
   const CurrentStep = getStepMetaByIndex(nav.stepIndex)?.component ?? null;
+  const router = useRouter();
   const handleNext = async () => {
     const isValid = await methods.trigger(
       BOOK_FORM_STEPS[nav.stepIndex].fields
     );
     if (isValid) {
+      saveFormData();
       nav.goNext();
     }
+  };
+
+  const handleSubmit = () => {
+    saveFormData();
+    alert("제출");
+    resetValue();
+    router.push("/books/basic");
   };
 
   return (
@@ -56,9 +56,7 @@ export default function NewBookStepPage() {
           onFirst={nav.goFirst}
           onPrev={nav.goPrev}
           onNext={handleNext}
-          onSubmit={() => {
-            alert("제출");
-          }}
+          onSubmit={handleSubmit}
         />
       </BookFormLayout>
     </FormProvider>

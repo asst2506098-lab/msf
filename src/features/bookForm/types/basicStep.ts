@@ -15,7 +15,7 @@ export type BasicStepFormData = {
 // 2단계
 export type RatingStepFormData = {
   isRecommended: boolean;
-  rating: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
+  rating: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | null;
 };
 
 // 3단계

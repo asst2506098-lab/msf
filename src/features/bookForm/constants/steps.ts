@@ -15,7 +15,7 @@ export type BookFormStepKey =
 
 export type BookFormStepMeta = {
   key: BookFormStepKey;
-  index: number;
+  path: string;
   title: string;
   description: string;
   component: ComponentType;
@@ -25,7 +25,7 @@ export type BookFormStepMeta = {
 export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
   {
     key: "basic",
-    index: 0,
+    path: "basic",
     title: "도서 기본 정보",
     description: "기본 정보, 독서 상태, 독서 기간",
     component: BasicStep,
@@ -42,7 +42,7 @@ export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
   },
   {
     key: "rating",
-    index: 1,
+    path: "rating",
     title: "추천 여부 & 별점",
     description: "추천 여부, 별점(0~5, 0.5 스케일)",
     component: RatingStep,
@@ -50,7 +50,7 @@ export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
   },
   {
     key: "review",
-    index: 2,
+    path: "review",
     title: "독후감",
     description: "별점이 1 또는 5면 100자 이상",
     component: ReviewStep,
@@ -58,7 +58,7 @@ export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
   },
   {
     key: "quotes",
-    index: 3,
+    path: "quotes",
     title: "인용구",
     description: "페이지 번호 유효성 포함",
     component: QuotesStep,
@@ -66,7 +66,7 @@ export const BOOK_FORM_STEPS: readonly BookFormStepMeta[] = [
   },
   {
     key: "visibility",
-    index: 4,
+    path: "visibility",
     title: "공개 여부",
     description: "공개 범위 설정",
     component: VisibilityStep,
