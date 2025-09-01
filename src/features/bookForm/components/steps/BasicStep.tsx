@@ -5,11 +5,11 @@ import {
   DateInput,
   SelectBox,
 } from "@/shared/components";
-import { BasicStepFormData } from "../../types/basicStep";
+import { SubmitFormData } from "../../types/basicStep";
 import { READING_STATUS_OPTIONS } from "../../constants/readingStatus";
 
 export function BasicStep() {
-  const { watch } = useFormContext<BasicStepFormData>();
+  const { watch } = useFormContext<SubmitFormData>();
   const readingStatus = watch("readingStatus");
 
   const isWantToRead = readingStatus === "want_to_read";
